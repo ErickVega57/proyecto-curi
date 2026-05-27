@@ -44,10 +44,6 @@ impl Contacto {
         &self.fecha_nacimiento
     }
 
-    pub fn set_nombre(&mut self, nombre: String) {
-        self.nombre = nombre;
-    }
-
     pub fn set_telefono(&mut self, telefono: String) {
         self.telefono = telefono;
     }

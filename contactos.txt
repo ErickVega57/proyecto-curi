@@ -18,3 +18,4 @@ Hugo,9995556667,19/09/1990,hugo@hotmail.com
 Patricia,9996667778,08/08/1991,patricia@gmail.com
 Felipe,9997778889,21/12/1989,felipe@gmail.com
 Enrique,9995494209,27/05/2005,carlos@gmail.com
+Erick,9995494209,19/08/2006,erickmanuel@gmail.com

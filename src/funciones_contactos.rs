@@ -159,11 +159,11 @@ pub fn comparacion_por_fecha(contacto: &Contacto, otro_contacto: &Contacto) -> O
 }
 
 pub fn imprimir_por_nombre(contactos : &Vec<Contacto>) -> io::Result<()> {
-
-
     let mut arbol_nombre = Arbol::<Contacto>::nuevo();
+
     // Recorrer todos los contactos
     for contacto in contactos {
+        // Alimentar árbol
         arbol_nombre.insertar_ordenado(contacto.clone(), comparacion_por_nombre);
     }
     arbol_nombre.in_orden();
@@ -172,11 +172,11 @@ pub fn imprimir_por_nombre(contactos : &Vec<Contacto>) -> io::Result<()> {
 }
 
 pub fn imprimir_por_fecha(contactos : &Vec<Contacto>) -> io::Result<()> {
-
-    // Cargar contactos desde el archivo
     let mut arbol_fechas = Arbol::<Contacto>::nuevo();
+
     // Recorrer todos los contactos
     for contacto in contactos {
+        // Alimentar árbol
         arbol_fechas.insertar_ordenado(contacto.clone(), comparacion_por_fecha);
     }
     arbol_fechas.in_orden();
