@@ -1,4 +1,6 @@
 use std::format;
+
+#[derive(Clone,Debug)]
 pub struct Fecha {
     dia: i32,
     mes: i32,
@@ -26,13 +28,13 @@ impl Fecha {
             }
         }
     }
+
     pub fn obtener_fecha_actual() -> Self {
         let ahora = std::time::SystemTime::now();
         let segundos: u64 = ahora.duration_since(std::time::UNIX_EPOCH)
             .unwrap()
             .as_secs() - (6 * 3600);
 
-        let segundos_restantes: u64 = segundos;
         let dias: u64 = segundos / 86400;
 
         let mut dias_restantes = dias;
@@ -62,10 +64,6 @@ impl Fecha {
             mes_actual += 1;
         }
 
-        //let segundos_en_dia = segundos_restantes % 86400;
-        //let _hora_actual = segundos_en_dia / 3600;
-        //let _minutos_actual = (segundos_en_dia % 3600) / 60;
-        //let _segundos_actual = segundos_en_dia % 60;
         let dia_actual: i32 = (dias_restantes_temp + 1) as i32;
 
         Self { dia: dia_actual, mes: mes_actual, anio: a }
@@ -98,6 +96,28 @@ impl Fecha {
         }
 
         Ok(Self { dia, mes, anio })
+    }
+
+    pub fn dia_actual(&self) -> i32 {
+        let mut dia_actual: i32 = 0;
+        let mut mes: i32 = 0;
+
+        while mes < self.mes - 1 {
+            let dias_en_mes: i32 = dias_en_mes(mes + 1, self.anio);
+            dia_actual += dias_en_mes;
+            mes += 1;  // ¡Importante: incrementar el mes!
+        }
+
+        dia_actual + self.dia  // Sumar el día actual del mes
+    }
+
+    pub fn calcular_indice_diferencia(&self, otra_fecha: &Fecha)-> i32{
+        if self.dia_actual() < otra_fecha.dia_actual(){
+            return otra_fecha.dia_actual() - self.dia_actual();
+        }else if self.dia_actual() > otra_fecha.dia_actual(){
+            return 365 + (otra_fecha.dia_actual() - self.dia_actual());
+        }
+        0
     }
 
     // Getters

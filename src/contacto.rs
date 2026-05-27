@@ -1,22 +1,33 @@
+use std::fmt;
 use crate::fecha::Fecha;
 
+
+#[derive(Clone)]
 pub struct Contacto{
-    nombre : String,
-    telefono : String,
-    correo : String,
-    fecha_cumple: Fecha,
+    nombre: String,
+    telefono: String,
+    correo: String,
+    fecha_nacimiento: Fecha,
+}
+
+impl fmt::Debug for Contacto {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        // Formato para imprimir contacto
+        write!(
+            f,
+            "Nombre: {} \n\
+            Teléfono: {} \n\
+            Correo: {} \n\
+            Fecha: {:?} \n",
+            self.nombre, self.telefono, self.correo, self.fecha_nacimiento.to_string()
+        )
+    }
 }
 
 impl Contacto {
-    pub fn new(nombre: &str, telefono: &str, correo: &str, fecha_cumple: Fecha) -> Self {
-        let nombre = nombre.to_string();
-        let telefono = telefono.to_string();
-        let correo = correo.to_string();
-
-        Self{nombre, telefono, correo, fecha_cumple}
+    pub fn new(nombre: String, telefono: String, correo: String, fecha_nacimiento: Fecha) -> Self {
+        Self { nombre, telefono, correo, fecha_nacimiento }
     }
-
-    // Getters
     pub fn nombre(&self) -> &str {
         &self.nombre
     }
@@ -29,9 +40,26 @@ impl Contacto {
         &self.correo
     }
 
-    pub fn fecha_cumple(&self) -> &Fecha {
-        &self.fecha_cumple
+    pub fn fecha_nacimiento(&self) -> &Fecha {
+        &self.fecha_nacimiento
     }
+
+    pub fn set_nombre(&mut self, nombre: String) {
+        self.nombre = nombre;
+    }
+
+    pub fn set_telefono(&mut self, telefono: String) {
+        self.telefono = telefono;
+    }
+
+    pub fn set_correo(&mut self, correo: String) {
+        self.correo = correo;
+    }
+
+    pub fn set_fecha_nacimiento(&mut self, fecha_nacimiento: Fecha) {
+        self.fecha_nacimiento = fecha_nacimiento;
+    }
+
 }
 // Métodos fuera del bloque impl
 pub fn validar_correo(correo: &str) -> Result<(), String> {
